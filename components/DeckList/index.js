@@ -22,25 +22,28 @@ class DeckList extends Component {
     _restored: PropTypes.bool.isRequired,
     restoreState: PropTypes.func.isRequired
   };
-  
+
   static navigationOptions = {
     tabBarLabel: 'Decks',
     tabBarIcon: ({tintColor}) => <MaterialCommunityIcons name='cards' color={tintColor} size={30} />
   };
-  
+
   componentDidMount() {
     if(!this.props._restored) this.props.restoreState();
   }
-  
+
   toNewDeckView = () => Alert.alert('Navigate');
-  
+
   render() {
     return (
       <View style={styles.container}>
         {(this.props._restored && (
           <FlatList data={this.props.decks}
                     keyExtractor={(_, index)=>index}
-                    renderItem={ListItem} />
+                    renderItem={({item}) => (
+                      <ListItem item={item}
+                                nav={()=>this.props.navigation.navigate('Deck', {deckName: item.title})} />
+                    )} />
         )) || (
           <Text>Loading...</Text>
         )}
@@ -49,12 +52,12 @@ class DeckList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, {navigation}) => {
   let decks = [];
   for(let deck in state) {
     if(state[deck].title) decks.push(state[deck]);
   }
-  return {decks, _restored: state._restored};
+  return {decks, _restored: state._restored, navigation};
 };
 
 const mapDispatchToProps = dispatch =>

@@ -23,10 +23,12 @@ const styles = StyleSheet.create({
   }
 })
 
-const ListItem = ({item}) => (
+const ListItem = ({item, nav}) => (
   <View style={styles.container}>
-    <Text style={styles.title}>{item.title}</Text>
-    <Text style={styles.count}>{item.questions ? item.questions.length : 0} cards</Text>
+    <TouchableOpacity onPress={nav}>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.count}>{item.questions ? item.questions.length : 0} cards</Text>
+    </TouchableOpacity>
   </View>
 );
 

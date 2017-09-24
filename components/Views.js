@@ -1,8 +1,9 @@
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import DeckList from './DeckList';
 import NewDeck from './NewDeck';
+import DeckView from './DeckView';
 
-const navRoutes = {
+const tabNavRoutes = {
   List: {
     screen: DeckList,
   },
@@ -11,14 +12,14 @@ const navRoutes = {
   }
 };
 
-const navOptions = {
+const tabNavOptions = {
   animationEnabled: true,
   header: null,
-  // lazy: true,
+  lazy: true,
   initialRouteName: 'List',
   tabBarOptions: {
-    tintColor: 'mediumaquamarine',
-    activeTintColor: 'darkcyan',
+    activeTintColor: 'mediumaquamarine',
+    inactiveTintColor: 'darkcyan',
     style: {
       height: 56,
       backgroundColor: '#fff',
@@ -32,4 +33,22 @@ const navOptions = {
   order: ['List', 'NewDeck']
 };
 
-export default TabNavigator(navRoutes, navOptions);
+const Tabs = TabNavigator(tabNavRoutes, tabNavOptions);
+
+const stackNavRoutes = {
+  Decks: {
+    screen: Tabs,
+    navigationOptions: {
+      title: 'My Flashcard Decks'
+    }
+  },
+  Deck: {
+    screen: DeckView
+  }
+};
+
+const stackNavOptions = {
+
+}
+
+export default StackNavigator(stackNavRoutes);

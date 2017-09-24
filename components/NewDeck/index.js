@@ -12,32 +12,15 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { addDeck } from '../../actions/deckActions';
+import baseStyle from '../../baseStyles';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   input: {
     width: 200,
     marginBottom: 50,
     paddingBottom: 5,
     borderBottomWidth: 5,
     borderColor: 'darkturquoise'
-  },
-  button: {
-    paddingHorizontal: 40,
-    paddingVertical: 20,
-    borderStyle: 'solid',
-    borderWidth: 3,
-    borderRadius: 6,
-    borderColor: 'darkcyan'
-  },
-  buttonText: {
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    color: 'darkcyan'
   }
 })
 class NewDeck extends Component {
@@ -61,13 +44,13 @@ class NewDeck extends Component {
   
   render() {
     return (
-      <View style={styles.container}>
+      <View style={baseStyle.container}>
         <TextInput value={this.state.title}
                    onChangeText={this.onTitleChange}
                    placeholder="title"
                    style={styles.input} />
-        <TouchableOpacity onPress={this.onSubmitDeck} style={styles.button}>
-          <Text style={styles.buttonText}>Add Deck</Text>
+        <TouchableOpacity onPress={this.onSubmitDeck} style={baseStyle.button}>
+          <Text style={baseStyle.buttonText}>Add Deck</Text>
         </TouchableOpacity>
       </View>
     );

@@ -9,6 +9,5 @@ export const restoreState = () => async dispatch => {
     const nextKey = JSON.parse(item);
     if(nextKey.title) state[nextKey.title] = nextKey;
   }
-  console.log(state);
   dispatch({type: types.RESTORE_ASYNC_STATE, payload: state});
 }

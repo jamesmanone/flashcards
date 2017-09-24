@@ -1,5 +1,14 @@
 import * as types from '../actions';
 
+/*
+ * the store is shaped as such:
+ * {
+ *   _restored: hasLoadedFromAsyncStorage ? true : false,
+ *   (foreach deck)
+ *   [deckTitle]: {title: deckTitle, questions: [...questions]},
+ * }
+ */
+
 export default (state={}, action) => {
   switch(action.type) {
     case types.RESTORE_ASYNC_STATE:
