@@ -1,17 +1,10 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import DeckList from './components/DeckList';
+import { Provider } from 'react-redux';
+import store from './store';
+import Views from './components/Views';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,3 +14,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Views />
+      </Provider>
+    );
+  }
+}
