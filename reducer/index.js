@@ -25,11 +25,11 @@ export default (state={}, action) => {
     case types.ADD_CARD:
       return {
         ...state,
-        [action.payload.deck]: {
-          ...state[action.payload.deck],
+        [action.deck]: {
+          ...state[action.deck],
           questions: [
-            ...state[action.payload.deck].questions,
-            action.payload.question
+            ...state[action.deck].questions,
+            action.payload
           ]
         }
       };

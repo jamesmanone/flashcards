@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 import DeckList from './components/DeckList';
 import { Provider } from 'react-redux';
 import store from './store';

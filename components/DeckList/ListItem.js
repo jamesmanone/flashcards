@@ -8,7 +8,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 400,
-    paddingVertical: 20
+    paddingVertical: 0,
+    borderStyle: 'solid',
+    borderBottomWidth: 4
   },
   title: {
     textAlign: 'center',
@@ -20,14 +22,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     color: '#999'
+  },
+  button: {
+    width: 400,
+    margin: 0,
+    paddingVertical: 20
   }
 })
 
 const ListItem = ({item, nav}) => (
   <View style={styles.container}>
-    <TouchableOpacity onPress={nav}>
+    <TouchableOpacity style={styles.button} onPress={nav}>
       <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.count}>{item.questions ? item.questions.length : 0} cards</Text>
+      <Text style={styles.count}>{item.questions.length} {item.questions.length === 1 ? 'card' : 'cards'}</Text>
     </TouchableOpacity>
   </View>
 );

@@ -7,14 +7,15 @@ import { bindActionCreators } from 'redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ListItem from './ListItem';
 import { restoreState } from '../../actions/restoreActions';
+import styles from '../../baseStyles';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   }
+// });
 
 class DeckList extends Component {
   static propTypes = {

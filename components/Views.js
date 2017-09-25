@@ -1,7 +1,9 @@
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import { Platform } from 'react-native';
 import DeckList from './DeckList';
 import NewDeck from './NewDeck';
 import DeckView from './DeckView';
+import NewCard from './NewCard'
 
 const tabNavRoutes = {
   List: {
@@ -39,16 +41,19 @@ const stackNavRoutes = {
   Decks: {
     screen: Tabs,
     navigationOptions: {
-      title: 'My Flashcard Decks'
+      title: 'Decks'
     }
   },
   Deck: {
     screen: DeckView
+  },
+  NewCard: {
+    screen: NewCard
   }
 };
 
 const stackNavOptions = {
+  headerMode: Platform.OS  === 'ios' ? 'float' : 'screen'
+};
 
-}
-
-export default StackNavigator(stackNavRoutes);
+export default StackNavigator(stackNavRoutes, stackNavOptions);

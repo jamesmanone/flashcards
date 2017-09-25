@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import {
   Text,
   View,
-  StyleSheet,
   Alert,
   TextInput,
   TouchableOpacity
@@ -14,41 +13,33 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { addDeck } from '../../actions/deckActions';
 import baseStyle from '../../baseStyles';
 
-const styles = StyleSheet.create({
-  input: {
-    width: 200,
-    marginBottom: 50,
-    paddingBottom: 5,
-    borderBottomWidth: 5,
-    borderColor: 'darkturquoise'
-  }
-})
+
 class NewDeck extends Component {
   static propTypes = {
     addDeck: PropTypes.func.isRequired
   };
-  
+
   static navigationOptions = {
     tabBarLabel: 'New Deck',
     tabBarIcon: ({tintColor}) => <MaterialCommunityIcons name='plus-box' color={tintColor} size={30} />
   };
-  
+
   state = {
     title: ''
   };
-  
+
   onTitleChange = title => this.setState({title});
-  
+
   onSubmitDeck = () =>
     this.state ? this.props.addDeck(this.state.title) : Alert.alert('Please enter a title');
-  
+
   render() {
     return (
       <View style={baseStyle.container}>
         <TextInput value={this.state.title}
                    onChangeText={this.onTitleChange}
                    placeholder="title"
-                   style={styles.input} />
+                   style={baseStyle.input} />
         <TouchableOpacity onPress={this.onSubmitDeck} style={baseStyle.button}>
           <Text style={baseStyle.buttonText}>Add Deck</Text>
         </TouchableOpacity>

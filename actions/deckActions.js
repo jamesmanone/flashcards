@@ -1,5 +1,5 @@
 import { AsyncStorage, Alert } from 'react-native';
-import * as types from './'
+import * as types from './';
 
 export const addDeck = title => async dispatch => {
   let newDeck = {

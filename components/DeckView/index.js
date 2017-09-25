@@ -5,6 +5,20 @@ import { bindActionCreators } from 'redux';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import baseStyle from '../../baseStyles';
 
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  button: {
+    marginVertical: 20
+  },
+  noCards: {
+    fontSize: 18,
+    marginTop: 20
+  }
+});
 
 
 class DeckView extends Component {
@@ -12,21 +26,34 @@ class DeckView extends Component {
     deck: PropTypes.object
   };
 
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: `${navigation.state.params.deckName}`
+    };
+  };
+
+  navToAdd = () => this.props.navigation.navigate(
+    'NewCard',
+    {
+      deckName: this.props.navigation.state.params.deckName
+    }
+  )
+
   render() {
     const { deck } = this.props;
     if(deck) return (
       <View style={baseStyle.container}>
-        <Text>{deck.title}</Text>
-        <Text>{deck.questions.length || 0} {deck.questions.length === 1 ? ' card' : ' cards'}</Text>
-        <TouchableOpacity>
-          <Text>Add Card</Text>
+        <Text style={styles.title}>{deck.title}</Text>
+        <Text>{deck.questions.length || 0} {deck.questions.length === 1 ? 'card' : 'cards'}</Text>
+        <TouchableOpacity style={[baseStyle.button, styles.button]} onPress={this.navToAdd}>
+          <Text style={baseStyle.buttonText}>Add Card</Text>
         </TouchableOpacity>
         {(deck.questions.length && (
-          <TouchableOpacity>
-            <Text>Start Quiz</Text>
+          <TouchableOpacity style={[baseStyle.button, baseStyle.buttonInverse, styles.button]}>
+            <Text style={baseStyle.buttonTextInverse}>Start Quiz</Text>
           </TouchableOpacity>
         )) || (
-          <Text>Add some cards so you can quiz yourself!</Text>
+          <Text style={styles.noCards}>Add some cards so you can quiz yourself!</Text>
         )}
       </View>
     );
@@ -37,7 +64,8 @@ class DeckView extends Component {
 const mapStateToProps = (state, {navigation}) => {
   const deckName = navigation.state.params.deckName;
   return {
-    deck: state[deckName]
+    deck: state[deckName],
+    navigation
   };
 };
 
