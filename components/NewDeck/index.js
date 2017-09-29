@@ -39,6 +39,9 @@ class NewDeck extends Component {
         <TextInput value={this.state.title}
                    onChangeText={this.onTitleChange}
                    placeholder="title"
+                   onSubmitEditing={this.onSubmitDeck}
+                   blurOnSubmit
+                   returnKeyType='done'
                    style={baseStyle.input} />
         <TouchableOpacity onPress={this.onSubmitDeck} style={baseStyle.button}>
           <Text style={baseStyle.buttonText}>Add Deck</Text>

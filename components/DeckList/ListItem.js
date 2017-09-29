@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import baseStyle from '../../baseStyles';
+
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 400,
+    width: width<400 ? width : 400,
     paddingVertical: 0,
     borderStyle: 'solid',
     borderBottomWidth: 4
@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
     color: '#999'
   },
   button: {
-    width: 400,
+    width: width<400 ? width : 400,
     margin: 0,
     paddingVertical: 20
   }
 })
 
 const ListItem = ({item, nav}) => (
-  <View style={styles.container}>
+  <View style={[baseStyle.container, styles.container]}>
     <TouchableOpacity style={styles.button} onPress={nav}>
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.count}>{item.questions.length} {item.questions.length === 1 ? 'card' : 'cards'}</Text>

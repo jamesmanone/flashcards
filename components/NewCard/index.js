@@ -2,23 +2,43 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import {
+  View,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  StyleSheet,
+  Dimensions
+} from 'react-native';
 import baseStyle from '../../baseStyles';
 import { addCard } from '../../actions/cardActions';
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   input: {
-    width: 380
+    width: width<420 ? width - 20 : 400
   },
   addButton: {
     bottom: 0
+  },
+  message: {
+    position: 'absolute',
+    top: 5,
+    paddingVertical: 3,
+    width: width<420 ? width - 20 : 400,
+    backgroundColor: 'darkgreen',
+    color: 'white',
+    textAlign: 'center'
   }
 });
 
 
 class NewCard extends Component {
   static propTypes = {
-
+    addCard: PropTypes.func.isRequired
   };
 
   static navigationOptions = ({navigation}) => ({
@@ -27,26 +47,42 @@ class NewCard extends Component {
 
   state = {
     question: '',
-    answer: ''
+    answer: '',
+    message: ''
   };
 
   onQuestionChange = question => this.setState({question});
 
   onAnswerChange = answer => this.setState({answer});
 
-  onAddQuestion = () => {
-    if(!(this.state.question && this.state.answer))
-      return Alert.alert('All questions have answers, all answers, questions');
-    this.props.addCard({...this.state});
+  afterAddQuestion = () => {
     this.setState({
       question: '',
-      answer: ''
+      answer: '',
+      message: 'Question Added!'
     });
+    setTimeout(this.clearMessage, 3000);
+  };
+
+  clearMessage = () => this.setState({message: ''});
+
+
+  onAddQuestion = () => {
+    if(!(this.state.question && this.state.answer))
+      return Alert.alert('All questions have answers; all answers, questions');
+    const newCard = {...this.state};
+    newCard.answer = newCard.answer.trim();
+    newCard.question = newCard.question.trim();
+    this.props.addCard(newCard, this.afterAddQuestion);
   };
 
   render() {
     return (
-      <View style={baseStyle.container}>
+      <KeyboardAvoidingView style={baseStyle.container}
+                            behavior='height'>
+        {(!!this.state.message && (
+          <Text style={styles.message}>{this.state.message}</Text>
+        ))}
         <TextInput onChangeText={this.onQuestionChange}
                    value={this.state.question}
                    placeholder='Question'
@@ -58,7 +94,7 @@ class NewCard extends Component {
         <TouchableOpacity style={[baseStyle.button, styles.addButton]} onPress={this.onAddQuestion}>
           <Text style={baseStyle.buttonText}>Add Question</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

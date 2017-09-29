@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +13,7 @@ export default StyleSheet.create({
     paddingVertical: 20,
     borderStyle: 'solid',
     borderWidth: 3,
-    borderRadius: 6,
+    borderRadius: 12,
     borderColor: 'darkcyan'
   },
   buttonInverse: {
@@ -27,7 +29,7 @@ export default StyleSheet.create({
     color: 'white'
   },
   input: {
-    width: 200,
+    width: width<180 ? width-20 : 200,
     marginBottom: 50,
     paddingBottom: 5,
     borderBottomWidth: 5,

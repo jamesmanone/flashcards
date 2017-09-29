@@ -37,6 +37,13 @@ class DeckView extends Component {
     {
       deckName: this.props.navigation.state.params.deckName
     }
+  );
+
+  startQuiz = () => this.props.navigation.navigate(
+    'QuizView',
+    {
+      deckName: this.props.navigation.state.params.deckName
+    }
   )
 
   render() {
@@ -49,8 +56,9 @@ class DeckView extends Component {
           <Text style={baseStyle.buttonText}>Add Card</Text>
         </TouchableOpacity>
         {(deck.questions.length && (
-          <TouchableOpacity style={[baseStyle.button, baseStyle.buttonInverse, styles.button]}>
-            <Text style={baseStyle.buttonTextInverse}>Start Quiz</Text>
+          <TouchableOpacity style={[baseStyle.button, baseStyle.buttonInverse, styles.button]}
+                            onPress={this.startQuiz}>
+            <Text style={[baseStyle.buttonText, baseStyle.buttonTextInverse]}>Start Quiz</Text>
           </TouchableOpacity>
         )) || (
           <Text style={styles.noCards}>Add some cards so you can quiz yourself!</Text>

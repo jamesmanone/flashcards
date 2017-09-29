@@ -3,7 +3,8 @@ import { Platform } from 'react-native';
 import DeckList from './DeckList';
 import NewDeck from './NewDeck';
 import DeckView from './DeckView';
-import NewCard from './NewCard'
+import NewCard from './NewCard';
+import QuizView from './QuizView';
 
 const tabNavRoutes = {
   List: {
@@ -49,6 +50,9 @@ const stackNavRoutes = {
   },
   NewCard: {
     screen: NewCard
+  },
+  QuizView: {
+    screen: QuizView
   }
 };
 
