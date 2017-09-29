@@ -9,8 +9,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    paddingHorizontal: 40,
+    width: 150,
     paddingVertical: 20,
+    marginVertical: 10,
     borderStyle: 'solid',
     borderWidth: 3,
     borderRadius: 12,

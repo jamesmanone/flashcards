@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10
   },
-  button: {
-    marginVertical: 20
-  },
+  // button: {
+  //   marginVertical: 20
+  // },
   noCards: {
     fontSize: 18,
     marginTop: 20
@@ -56,7 +56,7 @@ class DeckView extends Component {
           <Text style={baseStyle.buttonText}>Add Card</Text>
         </TouchableOpacity>
         {(deck.questions.length && (
-          <TouchableOpacity style={[baseStyle.button, baseStyle.buttonInverse, styles.button]}
+          <TouchableOpacity style={[baseStyle.button, baseStyle.buttonInverse]}
                             onPress={this.startQuiz}>
             <Text style={[baseStyle.buttonText, baseStyle.buttonTextInverse]}>Start Quiz</Text>
           </TouchableOpacity>
