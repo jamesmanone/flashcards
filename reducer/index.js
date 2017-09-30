@@ -18,10 +18,13 @@ export default (state={}, action) => {
         ...state,
         [action.payload.title]: action.payload
       };
+    // Delete actions not used but kept for possible future use
+/*
     case types.DELETE_DECK:
       let newState = {...state};
       delete newState[action.payload];
       return newState;
+*/
     case types.ADD_CARD:
       return {
         ...state,
@@ -33,6 +36,7 @@ export default (state={}, action) => {
           ]
         }
       };
+/*
     case types.DELETE_CARD:
     return {
       ...state,
@@ -42,6 +46,7 @@ export default (state={}, action) => {
                       .filter(i => i.id !== action.payload.id)
       }
     };
+*/
     default:
       return state;
   }
