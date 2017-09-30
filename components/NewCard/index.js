@@ -2,38 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  View,
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  StyleSheet,
-  Dimensions
-} from 'react-native';
-import baseStyle from '../../baseStyles';
 import { addCard } from '../../actions/cardActions';
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  input: {
-    width: width<420 ? width - 20 : 400
-  },
-  addButton: {
-    bottom: 0
-  },
-  message: {
-    position: 'absolute',
-    top: 5,
-    paddingVertical: 3,
-    width: width<420 ? width - 20 : 400,
-    backgroundColor: 'darkgreen',
-    color: 'white',
-    textAlign: 'center'
-  }
-});
+import CardForm from './CardForm';
 
 
 class NewCard extends Component {
@@ -61,10 +31,14 @@ class NewCard extends Component {
       answer: '',
       message: 'Question Added!'
     });
-    setTimeout(this.clearMessage, 3000);
+    this.timeout = setTimeout(this.clearMessage, 3000);
   };
 
   clearMessage = () => this.setState({message: ''});
+
+  componentWillUnmount() {
+    if(this.timeout) clearTimeout(this.timeout);
+  }
 
 
   onAddQuestion = () => {
@@ -78,28 +52,17 @@ class NewCard extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={baseStyle.container}
-                            behavior='height'>
-        {(!!this.state.message && (
-          <Text style={styles.message}>{this.state.message}</Text>
-        ))}
-        <TextInput onChangeText={this.onQuestionChange}
-                   value={this.state.question}
-                   placeholder='Question'
-                   style={[baseStyle.input, styles.input]} />
-        <TextInput onChangeText={this.onAnswerChange}
-                   value={this.state.answer}
-                   placeholder="Answer"
-                   style={[baseStyle.input, styles.input]} />
-        <TouchableOpacity style={[baseStyle.button, styles.addButton]} onPress={this.onAddQuestion}>
-          <Text style={baseStyle.buttonText}>Add Question</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+      <CardForm message={this.state.message}
+                question={this.state.question}
+                answer={this.state.answer}
+                onQuestionChange={this.onQuestionChange}
+                onAnswerChange={this.onAnswerChange}
+                onAddQuestion={this.onAddQuestion} />
     );
   }
 }
 
-const mapStateToProps = (state, ...ownProps) => ({
+const mapStateToProps = (_, ownProps) => ({
   ...ownProps
 });
 

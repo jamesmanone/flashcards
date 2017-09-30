@@ -2,21 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  Text,
-  View,
-  Alert,
-  TextInput,
-  TouchableOpacity
-} from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { addDeck } from '../../actions/deckActions';
-import baseStyle from '../../baseStyles';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import DeckForm from './DeckForm';
 
 class NewDeck extends Component {
   static propTypes = {
-    addDeck: PropTypes.func.isRequired
+    addDeck: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired
   };
 
   static navigationOptions = {
@@ -30,23 +23,18 @@ class NewDeck extends Component {
 
   onTitleChange = title => this.setState({title});
 
-  onSubmitDeck = () =>
-    this.state ? this.props.addDeck(this.state.title) : Alert.alert('Please enter a title');
+  afterSubmit = () => {
+    this.setState({title: ''}); // android is persisting state through navigation
+    this.props.navigation.goBack();
+  }
+
+  onSubmitDeck = () => this.props.addDeck(this.state.title, this.afterSubmit);
 
   render() {
     return (
-      <View style={baseStyle.container}>
-        <TextInput value={this.state.title}
-                   onChangeText={this.onTitleChange}
-                   placeholder="title"
-                   onSubmitEditing={this.onSubmitDeck}
-                   blurOnSubmit
-                   returnKeyType='done'
-                   style={baseStyle.input} />
-        <TouchableOpacity onPress={this.onSubmitDeck} style={baseStyle.button}>
-          <Text style={baseStyle.buttonText}>Add Deck</Text>
-        </TouchableOpacity>
-      </View>
+      <DeckForm title={this.state.title}
+                onTitleChange={this.onTitleChange}
+                onSubmitDeck={this.onSubmitDeck} />
     );
   }
 }

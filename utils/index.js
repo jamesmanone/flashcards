@@ -32,10 +32,10 @@ export const setNotification = () => {
           .then(({ status }) => {
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync();
-              let tomorrow = new Date();
+              const tomorrow = new Date();
               tomorrow.setDate(tomorrow.getDate() + 1);
               tomorrow.setHours(20);
-              tomorrow.setMintutes(0);
+              tomorrow.setMinutes(0);
               Notifications.scheduleLocalNotificationAsync(newNotification, {
                   time: tomorrow,
                   repeat: 'day',
