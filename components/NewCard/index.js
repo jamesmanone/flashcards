@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Alert } from 'react-native';
 import { addCard } from '../../actions/cardActions';
 import CardForm from './CardForm';
 
