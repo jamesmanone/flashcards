@@ -24,8 +24,9 @@ class NewDeck extends Component {
   onTitleChange = title => this.setState({title});
 
   afterSubmit = () => {
+    const deckName = this.state.title;
     this.setState({title: ''}); // android is persisting state through navigation
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('Deck', {deckName});
   }
 
   onSubmitDeck = () => this.props.addDeck(this.state.title, this.afterSubmit);
